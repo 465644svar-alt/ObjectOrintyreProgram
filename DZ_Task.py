@@ -7,6 +7,8 @@ import datetime
 tasks =[]
 
 class Task:
+
+
     def __init__(self,name, opisanie, end_time, status = False):
         self.name = name
         self.opisanie = opisanie
@@ -23,15 +25,28 @@ class Task:
     def task_completed(self):
         self.status = True
     def __str__(self):
-        status_text = "✅Выполнено" if self.status else "❌ Не выполнено"
+        status_text = "✅ Выполнено" if self.status else "❌ Не выполнено"
         time_text = self.end_time.strftime("%H:%M")
         return(f"{self.name}: {self.opisanie} (Выполнить до:{time_text}) Статус{status_text}")
+
+    @staticmethod
+    def uncomleted_task():
+        print("\n Невыполненные задачи:")
+        for task in tasks:
+            if not task.status:
+                print("-",task)
+
+
 first_task = Task("Сходить в магазин", "Купить картошки", datetime.time(21,00), False)
 tasks.append(first_task)
+tasks[0].task_completed()
 second_task = Task("Сходить в парк", "Прочитать книгу", datetime.time(21,00), False)
 tasks.append(second_task)
 
 for task in tasks:
     print(task)
+
+Task.uncomleted_task()
+
 
 
