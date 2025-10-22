@@ -4,9 +4,10 @@
 import datetime
 
 
+tasks =[]
 
 class Task:
-    def __init__(self,name, opisanie, end_time, status = True):
+    def __init__(self,name, opisanie, end_time, status = False):
         self.name = name
         self.opisanie = opisanie
         self.end_time = end_time
@@ -15,12 +16,22 @@ class Task:
         formatted_time = self.end_time.strftime("%H:%M")
         print(f"Задача должна быть выполнена до:, {formatted_time}")
     def show_status(self):
-        if self.status == True:
-            print("Задача выполнена")
-        elif self.status == False:
-            print("не выполнено")
-point1 = Task("Поход в магазин", "Купить картошку", end_time=datetime.time(21,00), status=False)
-print(point1.name, point1.opisanie, point1.end_time, point1.status)
-point1.task_time()
-point1.show_status()
+        if self.status:
+            print("✅Задача выполнена")
+        else:
+            print("❌ Не выполнено")
+    def task_completed(self):
+        self.status = True
+    def __str__(self):
+        status_text = "✅Выполнено" if self.status else "❌ Не выполнено"
+        time_text = self.end_time.strftime("%H:%M")
+        return(f"{self.name}: {self.opisanie} (Выполнить до:{time_text}) Статус{status_text}")
+first_task = Task("Сходить в магазин", "Купить картошки", datetime.time(21,00), False)
+tasks.append(first_task)
+second_task = Task("Сходить в парк", "Прочитать книгу", datetime.time(21,00), False)
+tasks.append(second_task)
+
+for task in tasks:
+    print(task)
+
 
