@@ -42,6 +42,8 @@ tasks.append(first_task)
 tasks[0].task_completed()
 second_task = Task("Сходить в парк", "Прочитать книгу", datetime.time(21,00), False)
 tasks.append(second_task)
+third_task = Task("Сходить в зал", "сделать кардио", datetime.time(14,00), False)
+tasks.append(third_task)
 
 for task in tasks:
     print(task)
