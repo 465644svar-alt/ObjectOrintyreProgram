@@ -16,26 +16,25 @@ class User:
         self.id = id
         self.name = name
         self.dostupid = dostupid
-            if dostupid == False:
+        if dostupid == False:
                 print("Close")
-            else:
+        elif dostupid == True:
                 print("Open")
-
-
-
-    def user_info:
-        return f"Код пользователя {self.id}, Имя {self.name}, уровень доступа {dostup}"
-
-user = User()
+     def user_info(self):
+         return f"Код пользователя {self.id}, Имя {self.name}, уровень доступа {self.dostupid}"
 user1 = User(1, "Viktor", True)
 user2 = User(2, "Galina", False)
 
 
+print(user1.user_info())
+print(user2.user_info())
 
 
 
-class Admin:
-    def __init__(self, id, name, dostupid=False, admin):
-        super() .__init__(id, name, dostupid = False)
-        self.id = id
-        self.name = name
+
+#
+# class Admin:
+#     def __init__(self, id, name, dostupid=False, admin):
+#         super() .__init__(id, name, dostupid = False)
+#         self.id = id
+#         self.name = name
