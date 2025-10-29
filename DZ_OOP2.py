@@ -1,47 +1,54 @@
 class User:
-    def __init__(self, user_id, name):
+    def __init__(self, user_id: int, name: str):
         self._id = user_id
         self._name = name
         self._access_level = "user"
-    def get_id(self):
+    def get_id(self) :
         return self._id
-    def get_name(self):
+    def get_name(self) :
         return self._name
     def get_access_level(self):
         return self._access_level
     def set_name(self, new_name)    :
         if new_name and len(new_name)>0 :
             self._name = new_name
+
     def user_info(self):
-        status = "Open" if self._access_level == "user" else "Closed"
+        return f"ID:{self._id}, Имя:{self._name}, Уровень доступа: {self._access_level}"
 
 # 2.Класс Admin: Этот класс должен наследоваться от класса User. Добавь дополнительный атрибут уровня доступа,
 # специфичный для администраторов ('admin'). Класс должен также содержать методы add_user и remove_user, которые
 # позволяют добавлять и удалять пользователей из списка (представь, что это просто список экземпляров User).
 class Admin(User):
-    def __init__(self, user_id, name):
+    def __init__(self, user_id: int, name: str):
         super().__init__(user_id, name)
         self._access_level = "admin"
-        self._user_list = []
-    def add_user(self, user):
-        if isinstance(user, User) and user not in self._user_list:
-            self._user_list.append(user)
-            print(f"Пользователь:{user.get_name()} добавлен в систему")
-        else:
-            print("Ошибка: неверный пользователь или пользователь уже существует")
+        self._user_list:list[User] = []
+    def add_user(self, user: User) -> None:
+        # проверяем тип и отсутствие пользователя с таким же ID
+        if not isinstance(user, User):
+            print("Ошибка: передан не экземпляр User")
+            return
+
+        if any(u.get_id() == user.get_id() for u in self._user_list):
+            print(f"Ошибка: пользователь с ID {user.get_id()} уже существует")
+            return
+
+        self._user_list.append(user)
+        print(f"Пользователь: {user.get_name()} (ID {user.get_id()}) добавлен в систему")
     def remove_user(self, user_id):
-        for user in self._users_list:
+        for user in self._user_list:
             if user.get_id() == user_id:
-                self._users_list.remove(user)
-                print(f"Пользователь {user.get_name()} удален из системы")
+                self._user_list.remove(user)
+                print(f"Пользователь {user.get_name()}(ID {user_id}) удален из системы")
                 return
         print(f"Пользователь с ID {user_id} не найден")
 
     def list_users(self):
         print("\n--- Список пользователей системы ---")
-        for user in self._users_list:
+        for user in self._user_list:
             print(user.user_info())
-        print(f"Всего пользователей: {len(self._users_list)}")
+        print(f"Всего пользователей: {len(self._user_list)}\n")
 
     def admin_info(self):
         return f"Администратор - ID: {self._id}, Имя: {self._name}"
