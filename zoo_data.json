@@ -1,0 +1,45 @@
+{
+    "name": "Сафари Парк",
+    "animals": [
+        {
+            "type": "Bird",
+            "name": "Кеша",
+            "age": 2,
+            "extra": {
+                "name": "Кеша",
+                "age": 2,
+                "wingspan": 0.3
+            }
+        },
+        {
+            "type": "Mammal",
+            "name": "Симба",
+            "age": 5,
+            "extra": {
+                "name": "Симба",
+                "age": 5,
+                "fur_color": "золотистый"
+            }
+        },
+        {
+            "type": "Reptile",
+            "name": "Наг",
+            "age": 4,
+            "extra": {
+                "name": "Наг",
+                "age": 4,
+                "is_venomous": true
+            }
+        }
+    ],
+    "staff": [
+        {
+            "type": "ZooKeeper",
+            "name": "Анна"
+        },
+        {
+            "type": "Veterinarian",
+            "name": "Игорь"
+        }
+    ]
+}

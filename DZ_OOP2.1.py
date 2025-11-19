@@ -31,7 +31,7 @@ class Admin(User):
 # # позволяют добавлять и удалять пользователей из списка (представь, что это просто список экземпляров `User`).
     def add_user(self, user):
         self._user_list.append(user)
-        return
+        print(f"Пользователь {user._name} добавлен")
     def remove_user(self, user):
         self._user_list.remove(user)
         return
@@ -44,6 +44,6 @@ admin.add_user(user1)
 admin.add_user(user2)
 admin.add_user(user3)
 
-print(_user_list())
+# print(_user_list())
 
 

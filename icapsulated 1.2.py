@@ -5,9 +5,12 @@ class Test():
         print("protected func")
     def __private_func(self):
         print("private func")
+    def test_private(self):
+        self.__private_func()
 
 test = Test()
 
 test.public_func()
 test._protected_func()
 test._Test__private_func()
+test.test_private()

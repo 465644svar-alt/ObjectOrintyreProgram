@@ -30,7 +30,8 @@ class Bird(Pigeon):
 
 
 bird2 = Bird("Олежка", "курлысимо", "зеленый", "хлебушек")
-
+bird3 = Pigeon("Маша", "чик чирик", "фиолетовый")
 bird2.info()
 bird2.walk()
 bird2.sing()
+bird3.info()
