@@ -68,7 +68,7 @@ if __name__ == "__main__":
     admin.add_user(user1)
     admin.add_user(user2)
     admin.add_user(user3)
-
+    print(f"Имя пользователя user3: {user3.get_access_level()}")
     # Просматриваем список пользователей
     admin.list_users()
 
