@@ -23,10 +23,10 @@
         },
         {
             "type": "Reptile",
-            "name": "Наг",
+            "name": "Нага",
             "age": 4,
             "extra": {
-                "name": "Наг",
+                "name": "Нага",
                 "age": 4,
                 "is_venomous": true
             }

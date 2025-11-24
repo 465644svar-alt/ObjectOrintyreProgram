@@ -144,7 +144,7 @@ if __name__ == "__main__":
     # создаём животных
     parrot = Bird("Кеша", 2, 0.3)
     lion = Mammal("Симба", 5, "золотистый")
-    snake = Reptile("Наг", 4, True)
+    snake = Reptile("Нага", 4, True)
 
     # создаём сотрудников
     keeper = ZooKeeper("Анна")
