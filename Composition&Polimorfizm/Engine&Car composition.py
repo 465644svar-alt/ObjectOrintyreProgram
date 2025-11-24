@@ -2,7 +2,7 @@ class Engine:
     def __init__(self, horsepower):
         self.horsepower = horsepower
     def __str__(self):
-        return f"{self.horsepower} horsepower"
+        return f"{self.horsepower} лошадиные силы"
 
 class Car:
     def __init__(self, model, engine_horsepower):
