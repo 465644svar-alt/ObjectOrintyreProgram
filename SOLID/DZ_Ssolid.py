@@ -29,9 +29,9 @@ class Fighter():
         else:
             print(f"{self.name} выбирает {weapon_name.lower()}.")
 
-    def attack_monster(self):
+    def atack_monster(self):
         if self.current_weapon:
-            print(self.current_weapon.attack())
+            print(self.current_weapon.atack())
             print("Монстр побежден!")
         else:
             print("Боец не выбрал оружие!")
@@ -52,14 +52,14 @@ if __name__ == "__main__":
     # Бой с мечом
     sword = Sword()
     fighter.change_weapon(sword)
-    fighter.attack_monster()
+    fighter.atack_monster()
 
     print("\n" + "=" * 30 + "\n")
 
     # Бой с луком
     bow = Bow()
     fighter.change_weapon(bow)
-    fighter.attack_monster()
+    fighter.atack_monster()
 
     print("\n" + "=" * 30 + "\n")
 
