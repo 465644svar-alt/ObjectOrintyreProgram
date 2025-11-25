@@ -51,6 +51,7 @@ if __name__ == "__main__":
 
     # Бой с мечом
     sword = Sword()
+    bow1 = Bow()
     fighter.change_weapon(sword)
     fighter.atack_monster()
 
