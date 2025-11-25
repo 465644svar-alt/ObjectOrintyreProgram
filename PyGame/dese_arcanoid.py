@@ -97,6 +97,8 @@ class Brick:
     def draw(self, screen):
         if self.visible:
             pygame.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height))
+            # Рамка вокруг кирпича
+            pygame.draw.rect(screen, WHITE, (self.x, self.y, self.width, self.height), 2)
 
     def get_rect(self):
         return pygame.Rect(self.x, self.y, self.width, self.height)
@@ -107,7 +109,6 @@ class Game:
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         pygame.display.set_caption("Arkanoid")
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.Font(None, 36)
 
         self.paddle = Paddle()
         self.ball = Ball()
@@ -154,24 +155,43 @@ class Game:
                     self.level += 1
                     self.create_bricks()
                     self.ball.reset()
+                    # Увеличиваем скорость мяча с каждым уровнем
+                    self.ball.dx *= 1.1
+                    self.ball.dy *= 1.1
+
+    def draw_text(self, text, x, y, color=WHITE):
+        # Простая функция для рисования текста без использования шрифтов
+        # Вместо текста рисуем простые фигуры или используем системный шрифт
+        font = pygame.font.SysFont(None, 36)
+        text_surface = font.render(text, True, color)
+        self.screen.blit(text_surface, (x, y))
 
     def draw_ui(self):
-        score_text = self.font.render(f"Счет: {self.score}", True, WHITE)
-        lives_text = self.font.render(f"Жизни: {self.lives}", True, WHITE)
-        level_text = self.font.render(f"Уровень: {self.level}", True, WHITE)
+        # Рисуем информацию об игре
+        self.draw_text(f"Счет: {self.score}", 10, SCREEN_HEIGHT - 30)
+        self.draw_text(f"Жизни: {self.lives}", 200, SCREEN_HEIGHT - 30)
+        self.draw_text(f"Уровень: {self.level}", 400, SCREEN_HEIGHT - 30)
 
-        self.screen.blit(score_text, (10, SCREEN_HEIGHT - 30))
-        self.screen.blit(lives_text, (200, SCREEN_HEIGHT - 30))
-        self.screen.blit(level_text, (400, SCREEN_HEIGHT - 30))
+    def show_message(self, message, color=WHITE):
+        # Показываем сообщение в центре экрана
+        self.screen.fill(BLACK)
+        self.draw_text(message, SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 18, color)
+        pygame.display.flip()
+        pygame.time.wait(2000)
 
     def run(self):
         running = True
+        game_started = False
 
         while running:
             # Обработка событий
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE and not game_started:
+                        game_started = True
+                        self.ball.active = True
 
             # Управление
             keys = pygame.key.get_pressed()
@@ -179,21 +199,22 @@ class Game:
                 self.paddle.move("left")
             if keys[pygame.K_RIGHT]:
                 self.paddle.move("right")
-            if keys[pygame.K_SPACE] and not self.ball.active:
-                self.ball.reset()
 
-            # Обновление
-            self.ball.move()
-            self.handle_collisions()
+            if game_started:
+                # Обновление
+                self.ball.move()
+                self.handle_collisions()
 
-            # Проверка потери жизни
-            if not self.ball.active:
-                self.lives -= 1
-                if self.lives <= 0:
-                    self.show_game_over()
-                    running = False
-                else:
-                    self.ball.reset()
+                # Проверка потери жизни
+                if not self.ball.active:
+                    self.lives -= 1
+                    if self.lives <= 0:
+                        self.show_message("ИГРА ОКОНЧЕНА", RED)
+                        running = False
+                    else:
+                        self.ball.reset()
+                        game_started = False
+                        self.show_message(f"Жизней осталось: {self.lives}")
 
             # Отрисовка
             self.screen.fill(BLACK)
@@ -207,22 +228,16 @@ class Game:
             # Рисование UI
             self.draw_ui()
 
+            # Сообщение о старте игры
+            if not game_started and self.ball.active:
+                self.draw_text("Нажмите ПРОБЕЛ для запуска мяча",
+                               SCREEN_WIDTH // 2 - 180, SCREEN_HEIGHT // 2)
+
             pygame.display.flip()
             self.clock.tick(FPS)
 
         pygame.quit()
         sys.exit()
-
-    def show_game_over(self):
-        self.screen.fill(BLACK)
-        game_over_text = self.font.render("ИГРА ОКОНЧЕНА", True, RED)
-        score_text = self.font.render(f"Финальный счет: {self.score}", True, WHITE)
-
-        self.screen.blit(game_over_text, (SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50))
-        self.screen.blit(score_text, (SCREEN_WIDTH // 2 - 120, SCREEN_HEIGHT // 2))
-
-        pygame.display.flip()
-        pygame.time.wait(3000)
 
 
 # Запуск игры
